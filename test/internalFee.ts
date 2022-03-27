@@ -14,8 +14,9 @@ describe("InternalFee", async function () {
 
   it("Can setup", async function () {
     [deployer] = await ethers.getSigners();
+    const routerAddress = `${process.env.ROUTER_ADDRESS}`;
 
-    router = await ethers.getContractAt("IUniswapV2Router02", "0x7a250d5630b4cf539739df2c5dacb4c659f2488d");
+    router = await ethers.getContractAt("IUniswapV2Router02", routerAddress);
 
     deadline = (await ethers.provider.getBlock("latest")).timestamp + deadlineBuffer;
   });

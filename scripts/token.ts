@@ -5,11 +5,13 @@ interface TokenParams {
 }
 
 export default async function token(params: TokenParams, hre: HardhatRuntimeEnvironment): Promise<void> {
-  const routerAddress = "0x7a250d5630b4cf539739df2c5dacb4c659f2488d";
+  // const routerAddress = "0x10ED43C718714eb63d5aA57B78B54704E256024E";
+  const routerAddress = `${process.env.ROUTER_ADDRESS}`;
   const ethers = hre.ethers;
   const utils = ethers.utils;
 
   const token = await ethers.getContractAt("ERC20", params.address);
+  console.log("Router:", routerAddress);
   console.log(`Check token ${params.address} with name ${await token.name()}`);
 
   try {
@@ -31,6 +33,7 @@ export default async function token(params: TokenParams, hre: HardhatRuntimeEnvi
       console.error("FAILED ToleranceCheck");
     }
   } catch (e) {
+    console.log(e);
     console.error("FAILED ToleranceCheck");
   }
 
@@ -48,6 +51,7 @@ export default async function token(params: TokenParams, hre: HardhatRuntimeEnvi
       console.error("FAILED InternalFee");
     }
   } catch (e) {
+    console.log(e);
     console.error("FAILED InternalFee");
   }
 }

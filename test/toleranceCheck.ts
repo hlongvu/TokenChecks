@@ -12,13 +12,13 @@ const callingAddress = "0x0000000000000000000000000000000000000124";
 describe("ToleranceCheck", async function () {
   let deployer: SignerWithAddress;
   let router: IUniswapV2Router02;
+  const routerAddress = `${process.env.ROUTER_ADDRESS}`;
 
   let deadline: number;
 
   it("Can setup", async function () {
     [deployer] = await ethers.getSigners();
-
-    router = await ethers.getContractAt("IUniswapV2Router02", "0x7a250d5630b4cf539739df2c5dacb4c659f2488d");
+    router = await ethers.getContractAt("IUniswapV2Router02", routerAddress);
 
     deadline = (await ethers.provider.getBlock("latest")).timestamp + deadlineBuffer;
   });
